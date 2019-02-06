@@ -1,0 +1,45 @@
+kind: Deployment
+apiVersion: extensions/v1beta1
+metadata:
+  name: paris-py-nginx-uwsgi
+  namespace: paris-py
+  labels:
+    app: paris.py
+    component: nginx-uwsgi
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: paris.py
+      component: nginx-uwsgi
+  template:
+    metadata:
+      labels:
+        app: paris.py
+        component: nginx-uwsgi
+    spec:
+      containers:
+        - name: nginx-uwsgi
+          image: wiremind/demo-paris.py-docker:latest
+          ports:
+            - name: http
+              containerPort: 80
+              protocol: TCP
+          resources:
+            limits:
+              cpu: '1'
+              memory: 256Mi
+            requests:
+              cpu: '50m'
+              memory: 256Mi
+          livenessProbe:
+            httpGet:
+              path: /
+              port: http
+              scheme: HTTP
+          readinessProbe:
+            httpGet:
+              path: /
+              port: http
+              scheme: HTTP
+          imagePullPolicy: IfNotPresent

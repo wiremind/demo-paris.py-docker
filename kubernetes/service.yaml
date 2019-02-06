@@ -1,0 +1,19 @@
+kind: Service
+apiVersion: v1
+metadata:
+  name: paris-py-nginx-uwsgi
+  namespace: paris-py
+  labels:
+    app: paris.py
+    component: nginx-uwsgi
+spec:
+  ports:
+    - name: http
+      protocol: TCP
+      port: 80
+      targetPort: http
+  selector:
+    app: paris.py
+    component: nginx-uwsgi
+  type: ClusterIP
+

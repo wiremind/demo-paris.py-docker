@@ -1,0 +1,22 @@
+kind: Ingress
+apiVersion: extensions/v1beta1
+metadata:
+  name: paris-py-nginx-uwsgi
+  namespace: paris-py
+  labels:
+    app: paris.py
+  annotations:
+    kubernetes.io/tls-acme: 'true'
+spec:
+  tls:
+    - hosts:
+        - paris-py.wiremind.io
+      secretName: pythie.wiremind.fr-tls
+  rules:
+    - host: paris-py.wiremind.io
+      http:
+        paths:
+          - path: /
+            backend:
+              serviceName: paris-py-nginx-uwsgi
+              servicePort: http
