@@ -2,10 +2,11 @@ kind: Service
 apiVersion: v1
 metadata:
   name: paris-py-nginx-uwsgi
-  namespace: paris-py
+  namespace: default
   labels:
     app: paris.py
     component: nginx-uwsgi
+    owner: cedric
 spec:
   ports:
     - name: http
@@ -15,5 +16,6 @@ spec:
   selector:
     app: paris.py
     component: nginx-uwsgi
+    owner: cedric
   type: ClusterIP
 

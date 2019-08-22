@@ -1,8 +1,8 @@
 kind: Deployment
-apiVersion: extensions/v1beta1
+apiVersion: apps/v1
 metadata:
   name: paris-py-nginx-uwsgi
-  namespace: paris-py
+  namespace: default
   labels:
     app: paris.py
     component: nginx-uwsgi
@@ -12,11 +12,13 @@ spec:
     matchLabels:
       app: paris.py
       component: nginx-uwsgi
+      owner: cedric
   template:
     metadata:
       labels:
         app: paris.py
         component: nginx-uwsgi
+        owner: cedric
     spec:
       containers:
         - name: nginx-uwsgi
